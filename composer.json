@@ -16,9 +16,7 @@
         "html5/htmlreader": "*"
     },
     "require-dev": {
-        "nette/tester": "*",
-        "satooshi/php-coveralls": "dev-master",
-        "phpunit/phpcov": "^2.0"
+        "nette/tester": "*"
     },
     "autoload": {
         "psr-4": {

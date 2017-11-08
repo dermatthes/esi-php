@@ -12,7 +12,7 @@ namespace Esi\Template;
 class EsiContainerNode implements TemplateNode
 {
 
-    private $nodes = [];
+    private $children = [];
 
     public function append (TemplateNode $node) {
         $this->nodes[] = $node;

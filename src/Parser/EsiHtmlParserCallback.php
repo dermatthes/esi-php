@@ -15,6 +15,11 @@ use HTML5\Tokenizer\HtmlCallback;
 class EsiHtmlParserCallback implements HtmlCallback
 {
 
+    private $documentNode;
+    private $currentNode;
+    private $parentNodes = [];
+
+
     public function onWhitespace(string $ws, int $lineNo)
     {
         // TODO: Implement onWhitespace() method.
