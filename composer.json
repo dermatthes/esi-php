@@ -1,0 +1,28 @@
+{
+    "name": "micx/esi-parser",
+    "type": "library",
+    "description": "edge side includes parser",
+    "keywords": ["text", "template", "render", "mail", "if", "for", "loop", "filter", "smarty", "twig"],
+    "homepage": "http://github.com/dermatthes/text-template",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Leuffen",
+            "email": "matthes@leuffen.de"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "html5/htmlreader": "*"
+    },
+    "require-dev": {
+        "nette/tester": "*",
+        "satooshi/php-coveralls": "dev-master",
+        "phpunit/phpcov": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Esi\\": "src/"
+        }
+    }
+}
