@@ -9,14 +9,20 @@
 namespace Esi\Template;
 
 
-class DocumentNode
+class DocumentNode extends TagNode
 {
 
+    private $templateEnv;
 
-
-
-    public function __construct($uri)
+    public function __construct(TemplateEnv $templateEnv)
     {
+        $this->uri = $templateEnv;
+        parent::__construct(null);
+    }
+
+    public function getTemplateEnv () : TemplateEnv
+    {
+        return $this->templateEnv;
     }
 
 
@@ -25,7 +31,15 @@ class DocumentNode
         if ($ob === null) {
             $ob = new OutputBuffer();
         }
-
+        foreach ($this->getChildren() as $curChild) {
+            if ($curChild instanceof TextNode) {
+                $ob->append($curChild->getText());
+                continue;
+            }
+            if ($curChild instanceof TagNode) {
+                $curChild->render($scope, $ob);
+            }
+        }
     }
 
 }

@@ -9,10 +9,24 @@
 namespace Esi\Template;
 
 
-class TextNode implements TemplateNode
+class TextNode implements Node
 {
 
+    private $text = "";
 
+    public function addText (string $text)
+    {
+        $this->text .= $text;
+    }
 
+    public function getText ()
+    {
+        return $this->text;
+    }
+
+    public function isEmpty ()
+    {
+        return (trim ($this->text) === "");
+    }
 
 }

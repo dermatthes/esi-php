@@ -12,4 +12,23 @@ namespace Esi\Template;
 class OutputBuffer
 {
 
+    private $buffer = "";
+
+    public function append(string $text)
+    {
+        $this->buffer .= $text;
+    }
+
+    public function getContents () : string
+    {
+        return $this->buffer;
+    }
+
+    public function flush()
+    {
+        echo $this->buffer;
+        $this->buffer = "";
+        flush();
+    }
+
 }

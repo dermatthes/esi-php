@@ -9,7 +9,7 @@
 namespace Esi\Template;
 
 
-interface TemplateNode
+interface Node
 {
 
 }

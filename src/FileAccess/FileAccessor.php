@@ -9,7 +9,7 @@
 namespace Esi\FileAccess;
 
 
-interface Reader
+interface FileAccessor
 {
 
 
