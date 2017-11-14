@@ -29,7 +29,7 @@ class TemplateEnv
     public $_DOC_ASSET_PATH;
 
 
-    public function path (string $newPath) : self
+    public function newEnv (string $newPath) : self
     {
         $newEnv = clone $this;
         $newEnv->_DOC_FILE =  $newEnv->_DOC_PATH . "/" . $newPath;

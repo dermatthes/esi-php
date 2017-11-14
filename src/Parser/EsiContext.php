@@ -43,7 +43,7 @@ class EsiContext
         $parser = new HTMLReader([
             "parseProcessingInstruction" => false,
             "parseComment" => false,
-            "parseOverTags" => [],
+            "parseOverTags" => ["esi:comment", "esi:markdown"],
             "parseOnlyTagPrefix" => "esi:"
         ]);
         $parser->setHandler(new EsiHtmlParserCallback($this->logicFactory, $documentNode));
@@ -53,7 +53,7 @@ class EsiContext
     }
 
 
-    public function render (TemplateEnv $env) {
+    public function build (TemplateEnv $env) {
         if ( ! $this->documentCache->hasDocument($env->_DOC_URI))
             $this->documentCache->setDocument($env->_DOC_URI, $this->_buildDocument($env));
         return $this->documentCache->getDocument($env->_DOC_URI);

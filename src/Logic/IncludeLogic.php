@@ -14,7 +14,9 @@ use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Node;
 use Esi\Template\OutputBuffer;
+use Esi\Template\RenderEnv;
 use Esi\Template\Tag;
+use Esi\Template\TagNode;
 use Esi\Template\VarScope;
 
 class IncludeLogic implements EsiLogic
@@ -27,21 +29,20 @@ class IncludeLogic implements EsiLogic
         return "include";
     }
 
-    public function build(Tag $tag, DocumentNode $documentNode, Node $parentNode)
+    public function build(Tag $tag, Node $parentNode, DocumentNode $documentNode)
     {
         $this->src = $tag->getAttributes()["src"];
     }
 
     public function runLogic(
-        VarScope $scope,
-        OutputBuffer $ob,
-        EsiNode $myNode,
-        EsiNode $parentNode,
-        DocumentNode $document,
-        EsiContext $esiContext
+        TagNode $myTagNode,
+        RenderEnv $renderEnv
     )
     {
-        $doc = $esiContext->render($document->getTemplateEnv()->path($this->src));
-        $doc->render(new VarScope(), $ob);
+        $templateEnv = $renderEnv->getDocumentNode()->getTemplateEnv()->newEnv($this->src);
+        $doc = $renderEnv->getEsiContext()->build($templateEnv);
+
+        // $renderEnv will be cloned and adjusted inside renderDocument()
+        $doc->renderDocument($renderEnv);
     }
 }

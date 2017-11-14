@@ -9,7 +9,10 @@
 namespace Esi;
 use Esi\FileAccess\LocalFileAccessor;
 use Esi\Parser\EsiContext;
+use Esi\Template\OutputBuffer;
+use Esi\Template\RenderEnv;
 use Esi\Template\TemplateEnv;
+use Esi\Template\VarScope;
 
 
 require __DIR__ . "/../../vendor/autoload.php";
@@ -19,7 +22,13 @@ require __DIR__ . "/../../vendor/autoload.php";
 \Tester\Environment::setup();
 
 
-$context = new EsiContext(new LocalFileAccessor(__DIR__ . "/"));
+$esiContext = new EsiContext(new LocalFileAccessor(__DIR__ . "/"));
 
-$doc = $context->render(TemplateEnv::Build("01_include/page.html"));
+$doc = $esiContext->build(TemplateEnv::Build("01_include/page.html"));
 print_r($doc);
+
+$renderEnvironment = new RenderEnv($esiContext, new VarScope());
+
+$doc->renderDocument($renderEnvironment);
+
+echo $renderEnvironment->getOutputBuffer()->getContents();

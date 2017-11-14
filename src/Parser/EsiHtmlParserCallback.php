@@ -74,7 +74,7 @@ class EsiHtmlParserCallback implements HtmlCallback
             $this->parentNodes[]
                 = $this->currentNode = $node = new TagNode($tag);
         }
-        $node->setLogic($this->logicFactory->build($tag, $parentNode, $this->documentNode));
+        $node->setLogic($this->logicFactory->buildLogic($tag, $parentNode, $this->documentNode));
         $parentNode->append($node);
     }
 

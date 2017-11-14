@@ -14,7 +14,9 @@ use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\OutputBuffer;
 use Esi\Template\Node;
+use Esi\Template\RenderEnv;
 use Esi\Template\Tag;
+use Esi\Template\TagNode;
 use Esi\Template\VarScope;
 
 interface EsiLogic
@@ -22,15 +24,11 @@ interface EsiLogic
 
     public function getResponsibleName() : string;
 
-    public function build (Tag $tag, DocumentNode $documentNode, Node $parentNode);
+    public function build (Tag $tag, Node $parentNode, DocumentNode $documentNode);
 
     public function runLogic (
-        VarScope $scope,
-        OutputBuffer $ob,
-        EsiNode $myNode,
-        EsiNode $parentNode,
-        DocumentNode $document,
-        EsiContext $esiContext
+        TagNode $myTagNode,
+        RenderEnv $renderEnv
     );
 
 }

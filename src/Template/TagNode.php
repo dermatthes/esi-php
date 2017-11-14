@@ -58,9 +58,12 @@ class TagNode implements EsiNode
         $this->children[] = $node;
     }
 
-    public function render(VarScope $scope, OutputBuffer $ob = null)
+    protected function _renderNode(RenderEnv $renderEnv)
     {
-        // TODO: Implement render() method.
+        $this->logic->runLogic(
+            $this,
+            $renderEnv
+        );
     }
 
 }

@@ -30,11 +30,15 @@ class EsiLogicFactory
         $this->logicMap[$logic->getResponsibleName()] = $logic;
     }
 
-    public function build (Tag $tag, EsiNode $parent=null, DocumentNode $document) : EsiLogic
+    public function buildLogic (Tag $tag, EsiNode $parent, DocumentNode $document) : EsiLogic
     {
         if ( ! isset ($this->logicMap[$tag->getName()]))
             throw new \Exception("Unknown Tag: $tag");
-        return clone $this->logicMap[$tag->getName()];
+        $newLogic = new $this->logicMap[$tag->getName()];
+        if ( ! $newLogic instanceof EsiLogic)
+            throw new \Exception("This is not EsiLogic");
+        $newLogic->build($tag, $parent, $document);
+        return $newLogic;
 
     }
 

@@ -13,7 +13,9 @@ use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Node;
 use Esi\Template\OutputBuffer;
+use Esi\Template\RenderEnv;
 use Esi\Template\Tag;
+use Esi\Template\TagNode;
 use Esi\Template\VarScope;
 
 class SlotLogic implements EsiLogic
@@ -35,11 +37,8 @@ class SlotLogic implements EsiLogic
     }
 
     public function runLogic(
-        VarScope $scope,
-        OutputBuffer $ob,
-        EsiNode $curNode,
-        EsiNode $parentNode,
-        DocumentNode $document
+        TagNode $myNode,
+        RenderEnv $renderEnv
     ) {
 
         $value = $scope->valueOf($this->name);

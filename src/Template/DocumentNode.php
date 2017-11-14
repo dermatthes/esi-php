@@ -16,7 +16,7 @@ class DocumentNode extends TagNode
 
     public function __construct(TemplateEnv $templateEnv)
     {
-        $this->uri = $templateEnv;
+        $this->templateEnv = $templateEnv;
         parent::__construct(null);
     }
 
@@ -26,18 +26,22 @@ class DocumentNode extends TagNode
     }
 
 
-    public function render (VarScope $scope, OutputBuffer $ob = null)
+    protected function _renderNode(RenderEnv $env)
     {
-        if ($ob === null) {
-            $ob = new OutputBuffer();
-        }
+        throw new \Exception("Calling _renderNode() on Document.");
+    }
+
+    public function renderDocument (RenderEnv $env)
+    {
+        $renderEnv = $env->cloneFor($this);
+
         foreach ($this->getChildren() as $curChild) {
             if ($curChild instanceof TextNode) {
-                $ob->append($curChild->getText());
+                $renderEnv->getOutputBuffer()->append($curChild->getText());
                 continue;
             }
             if ($curChild instanceof TagNode) {
-                $curChild->render($scope, $ob);
+                $curChild->_renderNode($renderEnv);
             }
         }
     }

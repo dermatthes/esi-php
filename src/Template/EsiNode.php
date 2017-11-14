@@ -17,6 +17,4 @@ interface EsiNode extends Node
      */
     public function getChildren () : array;
 
-    public function render(VarScope $scope, OutputBuffer $ob);
-
 }
