@@ -21,4 +21,5 @@ require __DIR__ . "/../../vendor/autoload.php";
 
 $context = new EsiContext(new LocalFileAccessor(__DIR__ . "/"));
 
-$context->render(TemplateEnv::Build("01_include/page.html"));
+$doc = $context->render(TemplateEnv::Build("01_include/page.html"));
+print_r($doc);

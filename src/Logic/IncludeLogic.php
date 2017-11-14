@@ -9,6 +9,7 @@
 namespace Esi\Logic;
 
 
+use Esi\Parser\EsiContext;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Node;
@@ -31,8 +32,16 @@ class IncludeLogic implements EsiLogic
         $this->src = $tag->getAttributes()["src"];
     }
 
-    public function runLogic(VarScope $scope, OutputBuffer $ob, EsiNode $myNode, EsiNode $parentNode, DocumentNode $document)
+    public function runLogic(
+        VarScope $scope,
+        OutputBuffer $ob,
+        EsiNode $myNode,
+        EsiNode $parentNode,
+        DocumentNode $document,
+        EsiContext $esiContext
+    )
     {
-        // TODO: Implement runLogic() method.
+        $doc = $esiContext->render($document->getTemplateEnv()->path($this->src));
+        $doc->render(new VarScope(), $ob);
     }
 }

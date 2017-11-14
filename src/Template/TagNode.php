@@ -15,11 +15,6 @@ class TagNode implements EsiNode
 {
 
     /**
-     * @var Node[]
-     */
-    private $children = [];
-
-    /**
      * @var Tag
      */
     private $tag;
@@ -28,6 +23,12 @@ class TagNode implements EsiNode
      * @var EsiLogic
      */
     private $logic;
+
+    /**
+     * @var Node[]
+     */
+    private $children = [];
+
 
     public function __construct(Tag $tag=null)
     {

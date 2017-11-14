@@ -9,6 +9,7 @@
 namespace Esi\Logic;
 
 
+use Esi\Parser\EsiContext;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Node;
@@ -48,7 +49,8 @@ class ExtendsLogic implements EsiLogic
         OutputBuffer $ob,
         EsiNode $myNode,
         EsiNode $parentNode,
-        DocumentNode $document
+        DocumentNode $document,
+        EsiContext $esiContext
     ) {
         $scope->setSlot(null, new DeferredSlot(function () use ($ob, $myNode) {
             foreach ($curNode as $) {

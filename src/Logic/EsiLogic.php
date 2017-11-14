@@ -9,6 +9,7 @@
 namespace Esi\Logic;
 
 
+use Esi\Parser\EsiContext;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\OutputBuffer;
@@ -23,6 +24,13 @@ interface EsiLogic
 
     public function build (Tag $tag, DocumentNode $documentNode, Node $parentNode);
 
-    public function runLogic (VarScope $scope, OutputBuffer $ob, EsiNode $myNode, EsiNode $parentNode, DocumentNode $document);
+    public function runLogic (
+        VarScope $scope,
+        OutputBuffer $ob,
+        EsiNode $myNode,
+        EsiNode $parentNode,
+        DocumentNode $document,
+        EsiContext $esiContext
+    );
 
 }

@@ -10,6 +10,7 @@ namespace Esi\Parser;
 
 
 use Esi\Logic\EsiLogic;
+use Esi\Logic\IncludeLogic;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Tag;
@@ -21,7 +22,7 @@ class EsiLogicFactory
 
     public function __construct()
     {
-        $this->register();
+        $this->register(new IncludeLogic());
     }
 
     public function register (EsiLogic $logic)

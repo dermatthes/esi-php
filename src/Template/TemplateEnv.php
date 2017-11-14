@@ -29,6 +29,14 @@ class TemplateEnv
     public $_DOC_ASSET_PATH;
 
 
+    public function path (string $newPath) : self
+    {
+        $newEnv = clone $this;
+        $newEnv->_DOC_FILE =  $newEnv->_DOC_PATH . "/" . $newPath;
+        $newEnv->_DOC_URI = dirname($newEnv->_DOC_URI) . "/" . $newPath;
+        return $newEnv;
+    }
+
 
     public static function Build ($docUri) : self
     {

@@ -65,12 +65,12 @@ class EsiHtmlParserCallback implements HtmlCallback
     {
         $this->currentNode->append($this->curTextNode);
         $this->curTextNode = new TextNode();
-
+        $parentNode = $this->currentNode;
         $tag = new Tag($name, $attributes, $isEmpty, $ns, $lineNo);
         if ($isEmpty) {
             $node = new TagNode($tag);
         } else {
-            $parentNode = $this->currentNode;
+
             $this->parentNodes[]
                 = $this->currentNode = $node = new TagNode($tag);
         }
@@ -85,6 +85,7 @@ class EsiHtmlParserCallback implements HtmlCallback
 
     public function onTagClose(string $name, $ns = null, int $lineNo)
     {
+        echo "onclose";
         if ($this->currentNode instanceof TagNode) {
             if ($this->currentNode->getTag()->getName() != $name)
                 throw new Exception("Ending Tag </$ns:$name> [Line: $lineNo] mismatch with opening tag {$this->currentNode->getTag()}");
@@ -104,5 +105,10 @@ class EsiHtmlParserCallback implements HtmlCallback
     public function onComment(string $data, int $lineNo)
     {
         $this->curTextNode->addText($data);
+    }
+
+    public function onEos()
+    {
+        $this->currentNode->append($this->curTextNode);
     }
 }
