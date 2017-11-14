@@ -38,17 +38,25 @@ class EsiContext
 
     private function _buildDocument (TemplateEnv $env) : DocumentNode
     {
+        $documentNode = new DocumentNode($env);
         $data = $this->fileAccessor->getContents($env->_DOC_URI);
-        $parser = new HTMLReader();
-        $parser->setHandler(new EsiHtmlParserCallback($this->logicFactory));
-
-
+        $parser = new HTMLReader([
+            "parseProcessingInstruction" => false,
+            "parseComment" => false,
+            "parseOverTags" => [],
+            "parseOnlyTagPrefix" => "esi:"
+        ]);
+        $parser->setHandler(new EsiHtmlParserCallback($this->logicFactory, $documentNode));
+        $parser->loadHtmlString($data);
+        $parser->parse();
+        return $documentNode;
     }
 
 
     public function render (TemplateEnv $env) {
         if ( ! $this->documentCache->hasDocument($env->_DOC_URI))
-            $this->documentCache->setDocument($this->_buildDocument($env));
+            $this->documentCache->setDocument($env->_DOC_URI, $this->_buildDocument($env));
+        return $this->documentCache->getDocument($env->_DOC_URI);
     }
 
 }

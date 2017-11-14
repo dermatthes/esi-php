@@ -34,6 +34,12 @@ class TagNode implements EsiNode
         $this->tag = $tag;
     }
 
+    public function getTag () : Tag
+    {
+        return $this->tag;
+    }
+
+
     public function setLogic (EsiLogic $logic)
     {
         $this->logic = $logic;

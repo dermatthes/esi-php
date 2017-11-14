@@ -16,6 +16,7 @@ use Esi\Template\EsiNode;
 use Esi\Template\Tag;
 use Esi\Template\TextNode;
 use HTML5\Tokenizer\HtmlCallback;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class EsiHtmlParserCallback implements HtmlCallback
 {
@@ -45,10 +46,10 @@ class EsiHtmlParserCallback implements HtmlCallback
      */
     private $logicFactory;
 
-    public function __construct(EsiLogicFactory $logicFactory)
+    public function __construct(EsiLogicFactory $logicFactory, DocumentNode $documentNode)
     {
         $this->logicFactory = $logicFactory;
-        $this->documentNode = new DocumentNode();
+        $this->documentNode = $documentNode;
         $this->currentNode = $this->documentNode;
         $this->parentNodes[] = $this->documentNode;
         $this->curTextNode = new TextNode();
@@ -64,7 +65,6 @@ class EsiHtmlParserCallback implements HtmlCallback
     {
         $this->currentNode->append($this->curTextNode);
         $this->curTextNode = new TextNode();
-
 
         $tag = new Tag($name, $attributes, $isEmpty, $ns, $lineNo);
         if ($isEmpty) {
@@ -85,7 +85,15 @@ class EsiHtmlParserCallback implements HtmlCallback
 
     public function onTagClose(string $name, $ns = null, int $lineNo)
     {
-        $this->no
+        if ($this->currentNode instanceof TagNode) {
+            if ($this->currentNode->getTag()->getName() != $name)
+                throw new Exception("Ending Tag </$ns:$name> [Line: $lineNo] mismatch with opening tag {$this->currentNode->getTag()}");
+        }
+        $this->currentNode->append($this->curTextNode);
+        $this->curTextNode = new TextNode();
+        array_pop($this->parentNodes);
+        $this->currentNode = $this->parentNodes[count ($this->parentNodes) - 1];
+
     }
 
     public function onProcessingInstruction(string $data, int $lineNo)

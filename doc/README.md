@@ -93,9 +93,9 @@ $(VARNAME{index}|default)
 Render the actual content inside another Template
 
 ```
-<esi:render-in src="" alt="" timeout="">
+<esi:extends src="" alt="" timeout="">
 
-</esi:render-in>
+</esi:extends>
 ```
 
 in the Template you can use

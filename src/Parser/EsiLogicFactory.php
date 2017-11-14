@@ -19,6 +19,11 @@ class EsiLogicFactory
 
     private $logicMap = [];
 
+    public function __construct()
+    {
+        $this->register();
+    }
+
     public function register (EsiLogic $logic)
     {
         $this->logicMap[$logic->getResponsibleName()] = $logic;
@@ -28,6 +33,7 @@ class EsiLogicFactory
     {
         if ( ! isset ($this->logicMap[$tag->getName()]))
             throw new \Exception("Unknown Tag: $tag");
+        return clone $this->logicMap[$tag->getName()];
 
     }
 
