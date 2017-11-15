@@ -3,7 +3,7 @@
     "type": "library",
     "description": "edge side includes parser",
     "keywords": ["text", "template", "render", "mail", "if", "for", "loop", "filter", "smarty", "twig"],
-    "homepage": "http://github.com/dermatthes/text-template",
+    "homepage": "http://github.com/dermatthes/esi-php",
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": ">=7.0",
-        "html5/htmlreader": "^2.0.1"
+        "html5/htmlreader": "^2.0.1",
+        "rmccue/requests": ">=1.0"
     },
     "require-dev": {
         "nette/tester": "*"
