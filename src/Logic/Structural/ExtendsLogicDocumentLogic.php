@@ -2,45 +2,40 @@
 /**
  * Created by PhpStorm.
  * User: matthes
- * Date: 13.11.17
- * Time: 19:00
+ * Date: 15.11.17
+ * Time: 15:18
  */
 
-namespace Esi\Logic;
+namespace Esi\Logic\Structural;
 
 
+use Esi\Logic\EsiLogic;
 use Esi\Template\DocumentNode;
-use Esi\Template\EsiNode;
 use Esi\Template\Node;
-use Esi\Template\OutputBuffer;
 use Esi\Template\RenderEnv;
 use Esi\Template\Tag;
 use Esi\Template\TagNode;
-use Esi\Template\VarScope;
 
-class SlotLogic implements EsiLogic
+class ExtendsLogicDocumentLogic implements EsiLogic
 {
 
     public function getResponsibleName(): string
     {
-        return "output-slot";
+        throw new \Exception("You dont want this");
     }
-
-    public $name = null;
 
     public function build(
         Tag $tag,
-        DocumentNode $documentNode,
-        Node $parentNode
+        Node $parentNode,
+        DocumentNode $documentNode
     ) {
 
     }
 
     public function runLogic(
-        TagNode $myNode,
+        TagNode $myTagNode,
         RenderEnv $renderEnv
     ) {
-
-        $value = $scope->valueOf($this->name);
+        $myTagNode->findLogicNode(ExtendsLogic::class)->_renderNode($renderEnv);
     }
 }

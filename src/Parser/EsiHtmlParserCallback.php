@@ -85,10 +85,9 @@ class EsiHtmlParserCallback implements HtmlCallback
 
     public function onTagClose(string $name, $ns = null, int $lineNo)
     {
-        echo "onclose";
         if ($this->currentNode instanceof TagNode) {
             if ($this->currentNode->getTag()->getName() != $name)
-                throw new Exception("Ending Tag </$ns:$name> [Line: $lineNo] mismatch with opening tag {$this->currentNode->getTag()}");
+                throw new \Exception("Ending Tag </$ns:$name> [Line: $lineNo] mismatch with opening tag {$this->currentNode->getTag()}");
         }
         $this->currentNode->append($this->curTextNode);
         $this->curTextNode = new TextNode();

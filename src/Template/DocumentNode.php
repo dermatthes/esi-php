@@ -9,14 +9,19 @@
 namespace Esi\Template;
 
 
+use Esi\Logic\Content\DefaultDocumentLogic;
+use Esi\Logic\EsiLogic;
+
 class DocumentNode extends TagNode
 {
 
     private $templateEnv;
 
+
     public function __construct(TemplateEnv $templateEnv)
     {
         $this->templateEnv = $templateEnv;
+        $this->setLogic(new DefaultDocumentLogic());
         parent::__construct(null);
     }
 
@@ -26,7 +31,7 @@ class DocumentNode extends TagNode
     }
 
 
-    protected function _renderNode(RenderEnv $env)
+    public function _renderNode(RenderEnv $env)
     {
         throw new \Exception("Calling _renderNode() on Document.");
     }
@@ -34,16 +39,7 @@ class DocumentNode extends TagNode
     public function renderDocument (RenderEnv $env)
     {
         $renderEnv = $env->cloneFor($this);
-
-        foreach ($this->getChildren() as $curChild) {
-            if ($curChild instanceof TextNode) {
-                $renderEnv->getOutputBuffer()->append($curChild->getText());
-                continue;
-            }
-            if ($curChild instanceof TagNode) {
-                $curChild->_renderNode($renderEnv);
-            }
-        }
+        $this->logic->runLogic($this, $renderEnv);
     }
 
 }

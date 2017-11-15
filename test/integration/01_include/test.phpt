@@ -15,16 +15,16 @@ use Esi\Template\TemplateEnv;
 use Esi\Template\VarScope;
 
 
-require __DIR__ . "/../../vendor/autoload.php";
+require __DIR__."/../../../vendor/autoload.php";
 
 
 
 \Tester\Environment::setup();
 
 
-$esiContext = new EsiContext(new LocalFileAccessor(__DIR__ . "/"));
+$esiContext = new EsiContext(new LocalFileAccessor(__DIR__));
 
-$doc = $esiContext->build(TemplateEnv::Build("01_include/page.html"));
+$doc = $esiContext->build(TemplateEnv::Build("page.html"));
 print_r($doc);
 
 $renderEnvironment = new RenderEnv($esiContext, new VarScope());

@@ -22,7 +22,7 @@ class TagNode implements EsiNode
     /**
      * @var EsiLogic
      */
-    private $logic;
+    protected $logic;
 
     /**
      * @var Node[]
@@ -46,6 +46,31 @@ class TagNode implements EsiNode
         $this->logic = $logic;
     }
 
+    public function getLogic () : EsiLogic
+    {
+        return $this->logic;
+    }
+
+    /**
+     * @param string $classname
+     *
+     * @return $this|null
+     */
+    public function findLogicNode (string $classname)
+    {
+        if ($this->logic instanceof $classname)
+            return $this;
+        foreach ($this->children as $child) {
+            if ( ! $child instanceof TagNode)
+                continue;
+            $ret = $child->findLogicNode($classname);
+            if ($ret !== null)
+                return $ret;
+        }
+        return null;
+    }
+
+
     /**
      * @return Node[]
      */
@@ -58,7 +83,21 @@ class TagNode implements EsiNode
         $this->children[] = $node;
     }
 
-    protected function _renderNode(RenderEnv $renderEnv)
+    public function renderNodeContent (RenderEnv $renderEnv)
+    {
+        foreach ($this->children as $child) {
+            if ($child instanceof TextNode) {
+                $renderEnv->getOutputBuffer()->append($child->getText());
+                continue;
+            }
+            if ($child instanceof TagNode) {
+                $child->_renderNode($renderEnv);
+                continue;
+            }
+        }
+    }
+
+    public function _renderNode(RenderEnv $renderEnv)
     {
         $this->logic->runLogic(
             $this,

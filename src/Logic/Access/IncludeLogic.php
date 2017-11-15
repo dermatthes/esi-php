@@ -6,9 +6,10 @@
  * Time: 1:30 AM
  */
 
-namespace Esi\Logic;
+namespace Esi\Logic\Access;
 
 
+use Esi\Logic\EsiLogic;
 use Esi\Parser\EsiContext;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;

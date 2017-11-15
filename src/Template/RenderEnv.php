@@ -34,7 +34,6 @@ class RenderEnv
      */
     private $esiContext;
 
-
     public function __construct(EsiContext $esiContext, VarScope $varScope)
     {
         $this->outputBuffer = new OutputBuffer();
