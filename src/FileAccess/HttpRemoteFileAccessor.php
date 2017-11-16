@@ -16,6 +16,11 @@ class HttpRemoteFileAccessor
 
     private $headers = [];
 
+    /**
+     * @var \Requests_Response
+     */
+    private $lastResponse;
+
     public function __construct(string $rootUrl)
     {
         $this->rootUrl = $rootUrl;
@@ -27,6 +32,14 @@ class HttpRemoteFileAccessor
         $this->headers[$name] = $value;
     }
 
+    /**
+     * @return \Requests_Response
+     */
+    public function getLastResponse ()
+    {
+        return $this->lastResponse;
+    }
+
 
     public function getContents($path)
     {
@@ -35,6 +48,7 @@ class HttpRemoteFileAccessor
         }
 
         $response = \Requests::get($path, $this->headers);
+        $this->lastResponse = $response;
         $response->throw_for_status();
         return $response->body;
     }
