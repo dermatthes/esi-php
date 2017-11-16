@@ -19,7 +19,7 @@ class HttpRemoteFileAccessor implements FileAccessor
     /**
      * @var \Requests_Response
      */
-    private $lastResponse;
+    protected $lastResponse;
 
     public function __construct(string $rootUrl)
     {
