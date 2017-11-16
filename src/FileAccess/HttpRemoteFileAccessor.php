@@ -44,12 +44,16 @@ class HttpRemoteFileAccessor implements FileAccessor
     public function getContents(string $url) : string
     {
         if ( !  (strpos($url, "http://") === 0 || strpos($url, "https://") === 0)) {
-            $url = $this->rootUrl . $url;
+            $url = $this->rootUrl . "/" .  $url;
         }
 
         $response = \Requests::get($url, $this->headers);
         $this->lastResponse = $response;
-        $response->throw_for_status();
+        try {
+            $response->throw_for_status();
+        } catch (\Exception $e) {
+            throw new $e("Requesting '$url': {$e->getMessage()}", $e->getCode());
+        }
         return $response->body;
     }
 
