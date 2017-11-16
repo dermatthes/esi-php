@@ -55,7 +55,7 @@ class ExtendsLogic implements EsiLogic
         RenderEnv $renderEnv
     ) {
         $extendedDocumentTemplateEnv = $renderEnv->getDocumentNode()->getTemplateEnv()->newEnv($this->src);
-        $extendedDocument = $renderEnv->getEsiContext()->build($extendedDocumentTemplateEnv);
+        $extendedDocument = $renderEnv->getEsiContext()->buildTemplate($extendedDocumentTemplateEnv);
 
         $contentLogicNode = $extendedDocument->findLogicNode(ContentLogic::class);
         if ($contentLogicNode === null) {

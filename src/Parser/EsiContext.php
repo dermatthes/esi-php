@@ -53,7 +53,7 @@ class EsiContext
     }
 
 
-    public function build (TemplateEnv $env) {
+    public function buildTemplate (TemplateEnv $env) {
         if ( ! $this->documentCache->hasDocument($env->_DOC_URI))
             $this->documentCache->setDocument($env->_DOC_URI, $this->_buildDocument($env));
         return $this->documentCache->getDocument($env->_DOC_URI);

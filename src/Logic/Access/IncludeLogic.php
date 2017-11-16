@@ -41,7 +41,7 @@ class IncludeLogic implements EsiLogic
     )
     {
         $templateEnv = $renderEnv->getDocumentNode()->getTemplateEnv()->newEnv($this->src);
-        $doc = $renderEnv->getEsiContext()->build($templateEnv);
+        $doc = $renderEnv->getEsiContext()->buildTemplate($templateEnv);
 
         // $renderEnv will be cloned and adjusted inside renderDocument()
         $doc->renderDocument($renderEnv);

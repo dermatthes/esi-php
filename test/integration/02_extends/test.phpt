@@ -24,7 +24,7 @@ require __DIR__."/../../../vendor/autoload.php";
 
 $esiContext = new EsiContext(new LocalFileAccessor(__DIR__));
 
-$doc = $esiContext->build(TemplateEnv::Build("page.html"));
+$doc = $esiContext->buildTemplate(TemplateEnv::Build("page.html"));
 print_r($doc);
 
 $renderEnvironment = new RenderEnv($esiContext, new VarScope());
