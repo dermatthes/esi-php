@@ -9,7 +9,7 @@
 namespace Esi\FileAccess;
 
 
-class HttpRemoteFileAccessor
+class HttpRemoteFileAccessor implements FileAccessor
 {
 
     private $rootUrl;
