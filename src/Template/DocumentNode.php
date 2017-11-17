@@ -9,6 +9,7 @@
 namespace Esi\Template;
 
 
+use Esi\Logic\Asset\RelativePathOutputFilter;
 use Esi\Logic\Content\DefaultDocumentLogic;
 use Esi\Logic\EsiLogic;
 
@@ -39,6 +40,13 @@ class DocumentNode extends TagNode
     public function renderDocument (RenderEnv $env)
     {
         $renderEnv = $env->cloneFor($this);
+        $renderEnv->setOutputBuffer(
+            new RelativePathOutputFilter(
+                $renderEnv->getOutputBuffer()->getOriginal(),
+                $this->templateEnv,
+                true
+            )
+        );
         $this->logic->runLogic($this, $renderEnv);
     }
 

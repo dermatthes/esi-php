@@ -31,4 +31,8 @@ class DefaultOutputBuffer implements OutputBuffer
         flush();
     }
 
+    public function getOriginal(): OutputBuffer
+    {
+        return $this;
+    }
 }

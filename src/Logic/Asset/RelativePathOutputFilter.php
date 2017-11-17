@@ -13,7 +13,7 @@ use Esi\Template\DefaultOutputBuffer;
 use Esi\Template\OutputBuffer;
 use Esi\Template\TemplateEnv;
 
-class AssetEsiDefaultOutputFilter implements OutputBuffer
+class RelativePathOutputFilter implements OutputBuffer
 {
     /**
      * @var OutputBuffer
@@ -59,4 +59,8 @@ class AssetEsiDefaultOutputFilter implements OutputBuffer
         return $this->parentBuffer->getContents();
     }
 
+    public function getOriginal(): OutputBuffer
+    {
+        return $this->parentBuffer->getOriginal();
+    }
 }

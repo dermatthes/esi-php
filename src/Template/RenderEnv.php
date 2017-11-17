@@ -44,6 +44,7 @@ class RenderEnv
     public function cloneFor (DocumentNode $documentNode) : self
     {
         $new = clone $this;
+        $this->outputBuffer = $this->outputBuffer->getOriginal();
         $new->documentNode = $documentNode;
         $new->varScope = $this->varScope; // CLONE!
         return $new;

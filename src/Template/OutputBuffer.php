@@ -15,5 +15,7 @@ interface OutputBuffer
 
     public function getContents () : string;
 
+    public function getOriginal () : OutputBuffer;
+
     public function flush();
 }

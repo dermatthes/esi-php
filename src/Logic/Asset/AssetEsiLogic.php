@@ -44,25 +44,6 @@ class AssetEsiLogic implements EsiLogic
         RenderEnv $renderEnv
     ) {
 
-        $oldOb = $renderEnv->getOutputBuffer();
-        $newOb = new AssetEsiDefaultOutputFilter($renderEnv->getOutputBuffer(), $renderEnv->getDocumentNode()->getTemplateEnv(), $this->absolute);
-        $renderEnv->setOutputBuffer($newOb);
 
-        try {
-            foreach ($myTagNode->getChildren() as $child) {
-                if ($child instanceof TextNode) {
-                    $newOb->append($child->getText());
-                    continue;
-                }
-                if ($child instanceof TagNode) {
-                    $child->_renderNode($renderEnv);
-                    continue;
-                }
-            }
-        } catch (\Exception $e) {
-            $renderEnv->setOutputBuffer($oldOb);
-            throw $e;
-        }
-        $renderEnv->setOutputBuffer($oldOb);
     }
 }
