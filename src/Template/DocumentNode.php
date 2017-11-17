@@ -40,6 +40,8 @@ class DocumentNode extends TagNode
     public function renderDocument (RenderEnv $env)
     {
         $renderEnv = $env->cloneFor($this);
+
+        // Make Paths absolute
         $renderEnv->setOutputBuffer(
             new RelativePathOutputFilter(
                 $renderEnv->getOutputBuffer()->getOriginal(),
