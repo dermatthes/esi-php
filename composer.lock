@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7add2b1c5696b259e4fd8c6d8e52801e",
-    "content-hash": "13e40f9dbd378775774cc47898c9913c",
+    "hash": "d5e874c9f34f1b7ce4b2911107b8d2fd",
+    "content-hash": "57814872d6e307522b06fbd2ba5bcde3",
     "packages": [
         {
             "name": "html5/htmlreader",
@@ -56,6 +56,59 @@
                 "tokenizer"
             ],
             "time": "2017-11-14 11:36:10"
+        },
+        {
+            "name": "phore/file",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phore/file.git",
+                "reference": "c3c5a4e3002c321096139cdd2885afd5bbfc36d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phore/file/zipball/c3c5a4e3002c321096139cdd2885afd5bbfc36d9",
+                "reference": "c3c5a4e3002c321096139cdd2885afd5bbfc36d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "nette/tester": "*",
+                "symfony/yaml": "*"
+            },
+            "suggest": {
+                "ext-xml": "Needed to support XML format in class Foo",
+                "symfony/yaml": "Allows usage of file($name)->yaml()"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Phore\\File\\": "src/"
+                },
+                "files": [
+                    "src/functions.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Leuffen",
+                    "email": "matthes@leuffen.de"
+                }
+            ],
+            "description": "File wrapper",
+            "homepage": "http://github.com/phore/file",
+            "keywords": [
+                "directory",
+                "file",
+                "url"
+            ],
+            "time": "2017-11-16 13:39:35"
         },
         {
             "name": "rmccue/requests",

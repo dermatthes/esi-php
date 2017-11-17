@@ -14,7 +14,8 @@
     "require": {
         "php": ">=7.0",
         "html5/htmlreader": "^2.0.1",
-        "rmccue/requests": ">=1.0"
+        "rmccue/requests": ">=1.0",
+        "phore/file": "*"
     },
     "require-dev": {
         "nette/tester": "*"

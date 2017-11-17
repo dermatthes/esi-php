@@ -9,6 +9,8 @@
 namespace Esi\Template;
 
 
+use Phore\File\Path;
+
 class TemplateEnv
 {
 
@@ -32,7 +34,8 @@ class TemplateEnv
     public function newEnv (string $newPath) : self
     {
         $newEnv = clone $this;
-        $newEnv->_DOC_FILE =  $newEnv->_DOC_PATH . "/" . $newPath;
+        $newEnv->_DOC_FILE =  Path::Use($newEnv->_DOC_PATH . "/" . $newPath)->resolve();
+        $newEnv->_DOC_PATH = Path::Use($newEnv->_DOC_PATH . "/" . dirname($newPath))->resolve();
         $newEnv->_DOC_URI = dirname($newEnv->_DOC_URI) . "/" . $newPath;
         return $newEnv;
     }
