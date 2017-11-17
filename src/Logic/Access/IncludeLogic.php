@@ -14,7 +14,7 @@ use Esi\Parser\EsiContext;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Node;
-use Esi\Template\OutputBuffer;
+use Esi\Template\DefaultOutputBuffer;
 use Esi\Template\RenderEnv;
 use Esi\Template\Tag;
 use Esi\Template\TagNode;

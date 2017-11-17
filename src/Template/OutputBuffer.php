@@ -2,33 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: matthes
- * Date: 11/7/17
- * Time: 11:26 PM
+ * Date: 17.11.17
+ * Time: 14:01
  */
 
 namespace Esi\Template;
 
 
-class OutputBuffer
+interface OutputBuffer
 {
+    public function append(string $text);
 
-    private $buffer = "";
+    public function getContents () : string;
 
-    public function append(string $text)
-    {
-        $this->buffer .= $text;
-    }
-
-    public function getContents () : string
-    {
-        return $this->buffer;
-    }
-
-    public function flush()
-    {
-        echo $this->buffer;
-        $this->buffer = "";
-        flush();
-    }
-
+    public function flush();
 }

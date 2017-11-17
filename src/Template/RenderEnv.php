@@ -36,7 +36,7 @@ class RenderEnv
 
     public function __construct(EsiContext $esiContext, VarScope $varScope)
     {
-        $this->outputBuffer = new OutputBuffer();
+        $this->outputBuffer = new DefaultOutputBuffer();
         $this->esiContext = $esiContext;
         $this->varScope = $varScope;
     }
@@ -55,6 +55,14 @@ class RenderEnv
     public function getOutputBuffer(): OutputBuffer
     {
         return $this->outputBuffer;
+    }
+
+    /**
+     * @param OutputBuffer $outputBuffer
+     */
+    public function setOutputBuffer(OutputBuffer $outputBuffer)
+    {
+        $this->outputBuffer = $outputBuffer;
     }
 
     /**

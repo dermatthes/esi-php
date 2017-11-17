@@ -41,6 +41,21 @@ class TemplateEnv
     }
 
 
+    public function getPath (string $subPath, bool $makeAbsolute=true) : string
+    {
+        if (substr($subPath, 0 , 1) === "/" || preg_match ("|^https?://|", $subPath)) {
+            return $subPath; // Ignore absolute paths
+        }
+        if ($makeAbsolute) {
+            $prefix = Path::Use($this->_ORIG_REQ_PATH . "/" . $this->_DOC_PATH)->resolve()->toAbsolute();
+            return Path::Use($prefix  . "/" . $subPath)->resolve()->toAbsolute();
+        } else {
+            $prefix = Path::Use($this->_DOC_PATH)->resolve()->toRelative();
+            return Path::Use($prefix  . "/" . $subPath)->resolve()->toRelative();
+        }
+    }
+
+
     public static function Build ($docUri) : self
     {
         $n = new self();

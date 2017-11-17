@@ -9,7 +9,7 @@
 namespace Esi;
 use Esi\FileAccess\LocalFileAccessor;
 use Esi\Parser\EsiContext;
-use Esi\Template\OutputBuffer;
+use Esi\Template\DefaultOutputBuffer;
 use Esi\Template\RenderEnv;
 use Esi\Template\TemplateEnv;
 use Esi\Template\VarScope;
