@@ -97,6 +97,15 @@ class TagNode implements EsiNode
         }
     }
 
+    public function getTextContent() : string
+    {
+        $content = "";
+        foreach ($this->getChildren() as $child)
+            if ($child instanceof TextNode)
+                $content .= $child->getText();
+        return $content;
+    }
+
     public function _renderNode(RenderEnv $renderEnv)
     {
         $this->logic->runLogic(

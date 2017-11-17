@@ -12,6 +12,7 @@ namespace Esi\Parser;
 use Esi\Logic\Access\IncludeLogic;
 use Esi\Logic\Asset\AssetEsiLogic;
 use Esi\Logic\EsiLogic;
+use Esi\Logic\Markdown\MarkdownLogic;
 use Esi\Logic\Structural\ContentLogic;
 use Esi\Logic\Structural\ExtendsLogic;
 use Esi\Template\DocumentNode;
@@ -29,6 +30,7 @@ class EsiLogicFactory
         $this->register(new ExtendsLogic());
         $this->register(new ContentLogic());
         $this->register(new AssetEsiLogic());
+        $this->register(new MarkdownLogic());
     }
 
     public function register (EsiLogic $logic)
