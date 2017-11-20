@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d10dd69932751d168f1d0b496219cdfe",
-    "content-hash": "9bdfdedb2b6392ec8edfac737e532910",
+    "hash": "1c67a110854619e7778f012d76f22b61",
+    "content-hash": "c6a7d66f59d226a3a44754f5f41e0410",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -123,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phore/file.git",
-                "reference": "c3c5a4e3002c321096139cdd2885afd5bbfc36d9"
+                "reference": "761ae9c67c8b77f66b6464d86aada4793de504a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phore/file/zipball/c3c5a4e3002c321096139cdd2885afd5bbfc36d9",
-                "reference": "c3c5a4e3002c321096139cdd2885afd5bbfc36d9",
+                "url": "https://api.github.com/repos/phore/file/zipball/761ae9c67c8b77f66b6464d86aada4793de504a9",
+                "reference": "761ae9c67c8b77f66b6464d86aada4793de504a9",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
                 "file",
                 "url"
             ],
-            "time": "2017-11-16 13:39:35"
+            "time": "2017-11-17 14:10:44"
         },
         {
             "name": "rmccue/requests",
@@ -218,6 +218,64 @@
                 "sockets"
             ],
             "time": "2016-10-13 00:11:37"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "3.4.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "14568820af0af65e8ae97c3999b58cc94ea408bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/14568820af0af65e8ae97c3999b58cc94ea408bf",
+                "reference": "14568820af0af65e8ae97c3999b58cc94ea408bf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "conflict": {
+                "symfony/console": "<3.4"
+            },
+            "require-dev": {
+                "symfony/console": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/console": "For validating YAML files using the lint command"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-10 19:03:56"
         }
     ],
     "packages-dev": [

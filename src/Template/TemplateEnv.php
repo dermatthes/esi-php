@@ -20,13 +20,15 @@ class TemplateEnv
     public $_ORIG_REQ_URI;
     public $_ORIG_REQ_PATH;
 
-    public $_ORIG_DOC_FILE;
+    public $_ORIG_DOC_BASENAME;
+    public $_ORIG_DOC_EXTENSION;
     public $_ORIG_DOC_URI;
-    public $_ORIG_DOC_PATH;
+    public $_ORIG_DOC_DIRNAME;
 
-    public $_DOC_FILE;
+    public $_DOC_BASENAME;
+    public $_DOC_EXTENSION;
     public $_DOC_URI;
-    public $_DOC_PATH;
+    public $_DOC_DIRNAME;
 
     public $_DOC_ASSET_PATH;
 
@@ -34,9 +36,11 @@ class TemplateEnv
     public function newEnv (string $newPath) : self
     {
         $newEnv = clone $this;
-        $newEnv->_DOC_FILE =  Path::Use($newEnv->_DOC_PATH . "/" . $newPath)->resolve();
-        $newEnv->_DOC_PATH = Path::Use($newEnv->_DOC_PATH . "/" . dirname($newPath))->resolve();
+        $newEnv->_DOC_BASENAME =  Path::Use($newEnv->_DOC_DIRNAME . "/" . $newPath)->resolve();
+        $newEnv->_DOC_DIRNAME = Path::Use($newEnv->_DOC_DIRNAME . "/" . dirname($newPath))->resolve();
         $newEnv->_DOC_URI = dirname($newEnv->_DOC_URI) . "/" . $newPath;
+        $newEnv->_DOC_EXTENSION = pathinfo($newPath)["extension"];
+
         return $newEnv;
     }
 
@@ -47,10 +51,10 @@ class TemplateEnv
             return $subPath; // Ignore absolute paths
         }
         if ($makeAbsolute) {
-            $prefix = Path::Use($this->_ORIG_REQ_PATH . "/" . $this->_DOC_PATH)->resolve()->toAbsolute();
+            $prefix = Path::Use($this->_ORIG_REQ_PATH . "/" . $this->_DOC_DIRNAME)->resolve()->toAbsolute();
             return Path::Use($prefix  . "/" . $subPath)->resolve()->toAbsolute();
         } else {
-            $prefix = Path::Use($this->_DOC_PATH)->resolve()->toRelative();
+            $prefix = Path::Use($this->_DOC_DIRNAME)->resolve()->toRelative();
             return Path::Use($prefix  . "/" . $subPath)->resolve()->toRelative();
         }
     }
@@ -60,9 +64,13 @@ class TemplateEnv
     {
         $n = new self();
         $n->_SELF = $_SERVER["PHP_SELF"];
+
+        $pathInfo = pathinfo($docUri);
+
         $n->_ORIG_DOC_URI = $n->_DOC_URI = $docUri;
-        $n->_ORIG_DOC_PATH = $n->_DOC_PATH = dirname($docUri);
-        $n->_ORIG_DOC_FILE = $n->_DOC_FILE = basename($docUri);
+        $n->_ORIG_DOC_DIRNAME = $n->_DOC_DIRNAME = $pathInfo["dirname"];
+        $n->_ORIG_DOC_BASENAME = $n->_DOC_BASENAME = $pathInfo["basename"];
+        $n->_ORIG_DOC_EXTENSION = $n->_DOC_EXTENSION = $pathInfo["extension"];
         return $n;
     }
 

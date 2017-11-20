@@ -18,3 +18,14 @@ edge side includes (esi) parser
 ### <esi:markdown>[markdown content</esi:markdown>
 
 See [cebe Markdown Guide](https://michelf.ca/projects/php-markdown/extra/)
+
+## Markdown
+
+```
+---
+extends: <file>
+args:
+    title: Some title
+---
+Markdown content here
+```

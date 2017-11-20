@@ -16,7 +16,8 @@
         "html5/htmlreader": "^2.0.1",
         "rmccue/requests": ">=1.0",
         "phore/file": "*",
-        "cebe/markdown": "^1.1"
+        "cebe/markdown": "^1.1",
+        "symfony/yaml": "*"
     },
     "require-dev": {
         "nette/tester": "*"

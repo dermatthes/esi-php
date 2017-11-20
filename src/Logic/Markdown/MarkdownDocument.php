@@ -12,6 +12,12 @@ namespace Esi\Logic\Markdown;
 use Esi\Template\DocumentNode;
 use Esi\Template\TemplateEnv;
 
+/**
+ * Class MarkdownDocument
+ *
+ * @package Esi\Logic\Markdown
+ * @deprecated
+ */
 class MarkdownDocument extends DocumentNode
 {
 

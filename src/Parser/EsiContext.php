@@ -22,9 +22,17 @@ class EsiContext
     public $logicFactory;
     public $fileAccessor;
     public $documentCache;
-
-
     public $htmlReader;
+
+
+    /**
+     * @var DocumentFactory[]
+     */
+    public $fileExtensionToDocumentFactory = [];
+    /**
+     * @var DocumentFactory[]
+     */
+    public $documentFactories = [];
 
     public function __construct(FileAccessor $fileAccessor)
     {
@@ -33,29 +41,38 @@ class EsiContext
         $this->documentCache = new SimpleDocumentCache();
         $this->htmlReader = new HTMLReader();
 
+        $this->addDocumentFactory(new EsiDocumentFactory(), ["html", "htm", "php"]);
+        $this->addDocumentFactory(new MarkdownDocumentFactory(), ["md"]);
+    }
+
+
+    public function addDocumentFactory(DocumentFactory $documentFactory, array $extensions)
+    {
+        $this->documentFactories[get_class($documentFactory)] = $documentFactory;
+        foreach ($extensions as $extension) {
+            $this->fileExtensionToDocumentFactory[$extension] = $documentFactory;
+        }
     }
 
 
     private function _buildDocument (TemplateEnv $env) : DocumentNode
     {
-        $documentNode = new DocumentNode($env);
-        $data = $this->fileAccessor->getContents($env->_DOC_URI);
-        $parser = new HTMLReader([
-            "parseProcessingInstruction" => false,
-            "parseComment" => false,
-            "parseOverTags" => ["esi:comment", "esi:markdown"],
-            "parseOnlyTagPrefix" => "esi:"
-        ]);
-        $parser->setHandler(new EsiHtmlParserCallback($this->logicFactory, $documentNode));
-        $parser->loadHtmlString($data);
-        $parser->parse();
-        return $documentNode;
+        return $this->fileExtensionToDocumentFactory[$env->_DOC_EXTENSION]->buildDocument($env, $this);
     }
 
 
+    public function isAwareOf (string $extension) : bool
+    {
+        return isset ($this->fileExtensionToDocumentFactory[$extension]);
+    }
+
+
+
     public function buildTemplate (TemplateEnv $env) {
-        if ( ! $this->documentCache->hasDocument($env->_DOC_URI))
+        if ( ! $this->documentCache->hasDocument($env->_DOC_URI)) {
             $this->documentCache->setDocument($env->_DOC_URI, $this->_buildDocument($env));
+        }
+
         return $this->documentCache->getDocument($env->_DOC_URI);
     }
 
