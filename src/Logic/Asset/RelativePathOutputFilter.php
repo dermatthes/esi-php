@@ -40,7 +40,8 @@ class RelativePathOutputFilter implements OutputBuffer
             '/(src|href)=(\"|\')(.*?)\2/im',
             function ($matches) {
                 $src = $matches[3];
-                $src = $this->templateEnv->getPath($src, $this->makeAbsolute);
+                if (substr ($src, 0, 1) !== "#" && substr ($src, 0, 1) !== "?")
+                    $src = $this->templateEnv->getPath($src, $this->makeAbsolute);
                 return $matches[1] . "=" . $matches[2] . $src . $matches[2];
             },
             $text
