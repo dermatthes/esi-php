@@ -66,7 +66,9 @@ class TemplateEnv
     }
 
 
+
     public static function Build (string $requestUri, string $documentUri) : self
+
     {
         $n = new self();
         $n->_SELF = $_SERVER["PHP_SELF"];
@@ -83,6 +85,7 @@ class TemplateEnv
         $n->_ORIG_DOC_EXTENSION = $n->_DOC_EXTENSION = $docPathInfo["extension"];
 
         //print_r ($n);
+
         return $n;
     }
 
