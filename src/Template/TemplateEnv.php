@@ -60,17 +60,20 @@ class TemplateEnv
     }
 
 
-    public static function Build ($docUri) : self
+    public static function Build ($reqUri, $docUri) : self
     {
         $n = new self();
         $n->_SELF = $_SERVER["PHP_SELF"];
 
-        $pathInfo = pathinfo($docUri);
+        $reqPathInfo = pathinfo($reqUri);
+        $docPathInfo = pathinfo($docUri);
 
-        $n->_ORIG_DOC_URI = $n->_DOC_URI = $docUri;
-        $n->_ORIG_DOC_DIRNAME = $n->_DOC_DIRNAME = $pathInfo["dirname"];
-        $n->_ORIG_DOC_BASENAME = $n->_DOC_BASENAME = $pathInfo["basename"];
-        $n->_ORIG_DOC_EXTENSION = $n->_DOC_EXTENSION = $pathInfo["extension"];
+        $n->_ORIG_DOC_URI = $n->_DOC_URI = $reqUri;
+        $n->_ORIG_REQ_PATH = $reqUri["dirname"];
+
+        $n->_ORIG_DOC_DIRNAME = $n->_DOC_DIRNAME = $docPathInfo["dirname"];
+        $n->_ORIG_DOC_BASENAME = $n->_DOC_BASENAME = $docPathInfo["basename"];
+        $n->_ORIG_DOC_EXTENSION = $n->_DOC_EXTENSION = $docPathInfo["extension"];
         return $n;
     }
 
