@@ -57,10 +57,10 @@ class TemplateEnv
             return $subPath; // Ignore absolute paths
         }
         if ($makeAbsolute) {
-            $prefix = Path::Use($this->_ORIG_REQ_PATH . "/" . $this->_REQ_DIRNAME)->resolve()->toAbsolute();
+            $prefix = Path::Use( $this->_REQ_DIRNAME)->resolve()->toAbsolute();
             return Path::Use($prefix  . "/" . $subPath)->resolve()->toAbsolute();
         } else {
-            $prefix = Path::Use($this->_DOC_DIRNAME)->resolve()->toRelative();
+            $prefix = Path::Use($this->_REQ_DIRNAME)->resolve()->toRelative();
             return Path::Use($prefix  . "/" . $subPath)->resolve()->toRelative();
         }
     }
