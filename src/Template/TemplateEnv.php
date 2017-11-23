@@ -39,14 +39,37 @@ class TemplateEnv
     public function newEnv (string $newPath) : self
     {
         $newEnv = clone $this;
-        $newEnv->_DOC_BASENAME =  Path::Use($newEnv->_DOC_DIRNAME . "/" . $newPath)->resolve();
-        $newEnv->_DOC_DIRNAME = Path::Use($newEnv->_DOC_DIRNAME . "/" . dirname($newPath))->resolve();
-        $newEnv->_DOC_URI = dirname($newEnv->_DOC_URI) . "/" . $newPath;
 
-        $newEnv->_REQ_DIRNAME = Path::Use($this->_REQ_DIRNAME . "/" . dirname($newPath))->resolve();
+        if (preg_match ("|^https?://|", $newPath)) {
+            $newEnv->_DOC_BASENAME = Path::Use (
+                $newPath
+            );
+            $newEnv->_DOC_DIRNAME = Path::Use (
+                dirname($newPath)
+            );
+            $newEnv->_DOC_URI = $newPath;
 
-        $newEnv->_DOC_EXTENSION = pathinfo($newPath)["extension"];
+            $newEnv->_REQ_DIRNAME = Path::Use (
+                dirname($newPath)
+            );
 
+            $newEnv->_DOC_EXTENSION = pathinfo($newPath)["extension"];
+        } else {
+
+            $newEnv->_DOC_BASENAME = Path::Use (
+                $newEnv->_DOC_DIRNAME."/".$newPath
+            )->resolve();
+            $newEnv->_DOC_DIRNAME = Path::Use (
+                $newEnv->_DOC_DIRNAME."/".dirname($newPath)
+            )->resolve();
+            $newEnv->_DOC_URI = dirname($newEnv->_DOC_URI)."/".$newPath;
+
+            $newEnv->_REQ_DIRNAME = Path::Use (
+                $this->_REQ_DIRNAME."/".dirname($newPath)
+            )->resolve();
+
+            $newEnv->_DOC_EXTENSION = pathinfo($newPath)["extension"];
+        }
         return $newEnv;
     }
 
@@ -56,13 +79,23 @@ class TemplateEnv
         if (substr($subPath, 0 , 1) === "/" || preg_match ("|^https?://|", $subPath)) {
             return $subPath; // Ignore absolute paths
         }
-        if ($makeAbsolute) {
-            $prefix = Path::Use( $this->_REQ_DIRNAME)->resolve()->toAbsolute();
-            return Path::Use($prefix  . "/" . $subPath)->resolve()->toAbsolute();
+
+
+
+        if (Path::Use($this->_REQ_DIRNAME)->isUrl()) {
+
+            return Path::Use($this->_REQ_DIRNAME  . "/" . $subPath);
         } else {
-            $prefix = Path::Use($this->_REQ_DIRNAME)->resolve()->toRelative();
-            return Path::Use($prefix  . "/" . $subPath)->resolve()->toRelative();
+            if ($makeAbsolute) {
+                $prefix = Path::Use( $this->_REQ_DIRNAME)->resolve()->toAbsolute();
+                return Path::Use($prefix  . "/" . $subPath)->resolve()->toAbsolute();
+            } else {
+                $prefix = Path::Use($this->_REQ_DIRNAME)->resolve()->toRelative();
+                return Path::Use($prefix  . "/" . $subPath)->resolve()->toRelative();
+            }
         }
+
+
     }
 
 

@@ -47,6 +47,14 @@ class RelativePathOutputFilter implements OutputBuffer
             $text
         );
 
+        $text = preg_replace_callback(
+            '/url\((.*?)\)/im',
+            function ($matches) {
+                $src = $matches[1];
+                return "url(" . $this->templateEnv->getPath($src, $this->makeAbsolute) . ")";
+            },
+            $text
+        );
         $this->parentBuffer->append($text);
     }
 
