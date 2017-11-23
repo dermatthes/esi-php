@@ -17,10 +17,14 @@ use HTML5\HTMLReader;
 class EsiDocumentFactory implements DocumentFactory
 {
 
-    public function buildDocument(TemplateEnv $templateEnv, EsiContext $esiContext): DocumentNode
+    public function buildDocument(TemplateEnv $templateEnv, EsiContext $esiContext, string $content=null): DocumentNode
     {
         $documentNode = new DocumentNode($templateEnv);
-        $data = $esiContext->fileAccessor->getContents($templateEnv->_DOC_URI);
+
+        $data = $content;
+        if ($content === null)
+            $data = $esiContext->fileAccessor->getContents($templateEnv->_DOC_URI);
+
         $parser = new HTMLReader([
             "parseProcessingInstruction" => false,
             "parseComment" => false,

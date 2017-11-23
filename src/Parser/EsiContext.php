@@ -43,6 +43,7 @@ class EsiContext
 
         $this->addDocumentFactory(new EsiDocumentFactory(), ["html", "htm", "php"]);
         $this->addDocumentFactory(new MarkdownDocumentFactory(), ["md"]);
+        $this->addDocumentFactory(new YamlDocumentFactory(), ["yaml", "yml"]);
     }
 
 

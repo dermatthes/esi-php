@@ -17,7 +17,8 @@
         "rmccue/requests": ">=1.0",
         "phore/file": "*",
         "cebe/markdown": "^1.1",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "yaml/eyaml": "^3"
     },
     "require-dev": {
         "nette/tester": "*"

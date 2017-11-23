@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c67a110854619e7778f012d76f22b61",
-    "content-hash": "c6a7d66f59d226a3a44754f5f41e0410",
+    "hash": "b93c3634d88f71ded824e83978dc78ea",
+    "content-hash": "9c484ef2107f7a77cbd191a544615049",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -123,12 +123,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phore/file.git",
-                "reference": "761ae9c67c8b77f66b6464d86aada4793de504a9"
+                "reference": "5b44ecf1563c7485caff20c456e719013f7d461c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phore/file/zipball/761ae9c67c8b77f66b6464d86aada4793de504a9",
-                "reference": "761ae9c67c8b77f66b6464d86aada4793de504a9",
+                "url": "https://api.github.com/repos/phore/file/zipball/5b44ecf1563c7485caff20c456e719013f7d461c",
+                "reference": "5b44ecf1563c7485caff20c456e719013f7d461c",
                 "shasum": ""
             },
             "require": {
@@ -168,7 +168,7 @@
                 "file",
                 "url"
             ],
-            "time": "2017-11-17 14:10:44"
+            "time": "2017-11-22 10:32:45"
         },
         {
             "name": "rmccue/requests",
@@ -276,6 +276,52 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2017-11-10 19:03:56"
+        },
+        {
+            "name": "yaml/eyaml",
+            "version": "v3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dermatthes/EYAML.git",
+                "reference": "78c092adf8bd3b56ffd062ac910fd585387908c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dermatthes/EYAML/zipball/78c092adf8bd3b56ffd062ac910fd585387908c3",
+                "reference": "78c092adf8bd3b56ffd062ac910fd585387908c3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "symfony/yaml": "*"
+            },
+            "require-dev": {
+                "nette/tester": "^1.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EYAML\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Matthias Leuffen",
+                    "email": "matthes@leuffen.de"
+                }
+            ],
+            "description": "Yaml with expressions parser (callbacks)",
+            "homepage": "http://github.com/dermatthes/EYAML",
+            "keywords": [
+                "framework",
+                "php",
+                "yaml"
+            ],
+            "time": "2017-11-22 19:56:12"
         }
     ],
     "packages-dev": [
