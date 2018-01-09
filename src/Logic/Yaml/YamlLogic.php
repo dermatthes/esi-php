@@ -10,7 +10,11 @@ namespace Esi\Logic\Yaml;
 
 
 use cebe\markdown\MarkdownExtra;
+use Esi\Logic\EsiBuildLogic;
 use Esi\Logic\EsiLogic;
+use Esi\Parser\EsiContext;
+use Esi\Parser\EsiDocumentFactory;
+use Esi\Parser\EsiHtmlParserCallback;
 use Esi\Template\DocumentNode;
 use Esi\Template\Node;
 use Esi\Template\RenderEnv;
@@ -19,7 +23,7 @@ use Esi\Template\TagNode;
 use Esi\Template\TextNode;
 use EYAML\EYAML;
 
-class YamlLogic implements EsiLogic
+class YamlLogic implements EsiBuildLogic
 {
 
     public function getResponsibleName(): string
@@ -27,7 +31,7 @@ class YamlLogic implements EsiLogic
         return "yaml";
     }
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode
@@ -39,15 +43,37 @@ class YamlLogic implements EsiLogic
         TagNode $myTagNode,
         RenderEnv $renderEnv
     ) {
-        $content = $myTagNode->getTextContent();
-        $content = str_replace("\n\r", "\n", $content);
+        return false;
+    }
 
-        if (preg_match("/\\n(\s*?)\S/im", $content, $maches)) {
-            // Strip leading spaces
-            $content = str_replace("\n" . $maches[1], "\n", $content);
+
+    public function onEndBuild(
+        Node $thisNode,
+        Node $parentNode,
+        EsiContext $esiContext,
+        DocumentNode $documentNode
+    ) {
+        echo "onEndBuild";
+        if ($thisNode instanceof TagNode) {
+            $templateStr = str_replace("\n\r", "\n", $thisNode->getTextContent());
+            if (preg_match("/\\n(\s*?)\S/im", $templateStr, $maches)) {
+                // Strip leading spaces
+                $templateStr = str_replace("\n" . $maches[1], "\n", $templateStr);
+            }
+            echo $templateStr;
+            $templateData = EYAML::Parse($templateStr);
+
+
+
+            echo $templateData;
+
+            $factory = new EsiDocumentFactory();
+            $subDoc = $factory->buildDocument($documentNode->getTemplateEnv(), $esiContext, $templateData);
+
+
+            foreach ($subDoc->getChildren() as $curChild) {
+                $parentNode->append($curChild);
+            }
         }
-
-        $template = EYAML::Parse($content);
-
     }
 }

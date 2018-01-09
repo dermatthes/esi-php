@@ -9,6 +9,7 @@
 namespace Esi\Template;
 
 
+use Esi\Logic\EsiBuildLogic;
 use Esi\Logic\EsiLogic;
 
 class TagNode implements EsiNode
@@ -46,6 +47,9 @@ class TagNode implements EsiNode
         $this->logic = $logic;
     }
 
+    /**
+     * @return EsiLogic|EsiBuildLogic
+     */
     public function getLogic () : EsiLogic
     {
         return $this->logic;

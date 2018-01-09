@@ -30,7 +30,7 @@ class IncludeLogic implements EsiLogic
         return "include";
     }
 
-    public function build(Tag $tag, Node $parentNode, DocumentNode $documentNode)
+    public function onBeginBuild(Tag $tag, Node $parentNode, DocumentNode $documentNode)
     {
         $this->src = $tag->getAttributes()["src"];
     }

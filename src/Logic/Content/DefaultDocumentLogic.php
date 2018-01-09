@@ -25,7 +25,7 @@ class DefaultDocumentLogic implements EsiLogic
         throw new \Exception("You are not allowed to call this by tags");
     }
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

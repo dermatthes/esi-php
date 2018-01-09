@@ -24,11 +24,15 @@ interface EsiLogic
 
     public function getResponsibleName() : string;
 
-    public function build (Tag $tag, Node $parentNode, DocumentNode $documentNode);
+    public function onBeginBuild (Tag $tag, Node $parentNode, DocumentNode $documentNode);
+
+
 
     public function runLogic (
         TagNode $myTagNode,
         RenderEnv $renderEnv
     );
+
+
 
 }

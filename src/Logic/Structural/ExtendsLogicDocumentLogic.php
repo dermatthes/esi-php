@@ -24,7 +24,7 @@ class ExtendsLogicDocumentLogic implements EsiLogic
         throw new \Exception("You dont want this");
     }
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

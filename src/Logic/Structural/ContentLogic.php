@@ -41,7 +41,7 @@ class ContentLogic implements EsiLogic
     }
 
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

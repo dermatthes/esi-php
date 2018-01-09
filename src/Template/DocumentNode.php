@@ -19,6 +19,7 @@ class DocumentNode extends TagNode
     private $templateEnv;
 
 
+
     public function __construct(TemplateEnv $templateEnv)
     {
         $this->templateEnv = $templateEnv;

@@ -31,7 +31,7 @@ class EsiDocumentFactory implements DocumentFactory
             "parseOverTags" => ["esi:comment", "esi:markdown"],
             "parseOnlyTagPrefix" => "esi:"
         ]);
-        $parser->setHandler(new EsiHtmlParserCallback($esiContext->logicFactory, $documentNode));
+        $parser->setHandler(new EsiHtmlParserCallback($esiContext, $documentNode));
         $parser->loadHtmlString($data);
         $parser->parse();
         return $documentNode;

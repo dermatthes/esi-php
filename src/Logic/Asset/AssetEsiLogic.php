@@ -29,7 +29,7 @@ class AssetEsiLogic implements EsiLogic
         return "asset";
     }
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

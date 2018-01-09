@@ -11,10 +11,12 @@ namespace Esi\Parser;
 
 use Esi\Logic\Access\IncludeLogic;
 use Esi\Logic\Asset\AssetEsiLogic;
+use Esi\Logic\EsiBuildLogic;
 use Esi\Logic\EsiLogic;
 use Esi\Logic\Markdown\MarkdownLogic;
 use Esi\Logic\Structural\ContentLogic;
 use Esi\Logic\Structural\ExtendsLogic;
+use Esi\Logic\Yaml\YamlLogic;
 use Esi\Template\DocumentNode;
 use Esi\Template\EsiNode;
 use Esi\Template\Tag;
@@ -31,6 +33,7 @@ class EsiLogicFactory
         $this->register(new ContentLogic());
         $this->register(new AssetEsiLogic());
         $this->register(new MarkdownLogic());
+        $this->register(new YamlLogic());
     }
 
     public function register (EsiLogic $logic)
@@ -38,6 +41,14 @@ class EsiLogicFactory
         $this->logicMap[$logic->getResponsibleName()] = $logic;
     }
 
+    /**
+     * @param Tag          $tag
+     * @param EsiNode      $parent
+     * @param DocumentNode $document
+     *
+     * @return EsiLogic | EsiBuildLogic
+     * @throws \Exception
+     */
     public function buildLogic (Tag $tag, EsiNode $parent, DocumentNode $document) : EsiLogic
     {
         if ( ! isset ($this->logicMap[$tag->getName()]))
@@ -45,7 +56,7 @@ class EsiLogicFactory
         $newLogic = new $this->logicMap[$tag->getName()];
         if ( ! $newLogic instanceof EsiLogic)
             throw new \Exception("This is not EsiLogic");
-        $newLogic->build($tag, $parent, $document);
+        $newLogic->onBeginBuild($tag, $parent, $document);
         return $newLogic;
 
     }

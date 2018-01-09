@@ -26,7 +26,7 @@ class MarkdownLogic implements EsiLogic
         return "markdown";
     }
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

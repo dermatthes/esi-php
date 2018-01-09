@@ -39,7 +39,7 @@ class ExtendsLogic implements EsiLogic
 
     public $src;
 
-    public function build(
+    public function onBeginBuild(
         Tag $tag,
         Node $parentNode,
         DocumentNode $documentNode

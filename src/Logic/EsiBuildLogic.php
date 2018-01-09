@@ -9,7 +9,14 @@
 namespace Esi\Logic;
 
 
-class EsiBuildLogic
+use Esi\Parser\EsiContext;
+use Esi\Parser\EsiHtmlParserCallback;
+use Esi\Template\DocumentNode;
+use Esi\Template\Node;
+
+interface EsiBuildLogic extends EsiLogic
 {
+
+    public function onEndBuild(Node $thisNode, Node $parentNode, EsiContext $esiContext, DocumentNode $documentNode);
 
 }

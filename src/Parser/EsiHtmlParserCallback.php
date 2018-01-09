@@ -10,6 +10,7 @@ namespace Esi\Parser;
 
 
 
+use Esi\Logic\EsiBuildLogic;
 use Esi\Template\DocumentNode;
 use Esi\Template\TagNode;
 use Esi\Template\EsiNode;
@@ -44,11 +45,11 @@ class EsiHtmlParserCallback implements HtmlCallback
     /**
      * @var EsiLogicFactory
      */
-    private $logicFactory;
+    private $esiContext;
 
-    public function __construct(EsiLogicFactory $logicFactory, DocumentNode $documentNode)
+    public function __construct(EsiContext $esiContext, DocumentNode $documentNode)
     {
-        $this->logicFactory = $logicFactory;
+        $this->esiContext = $esiContext;
         $this->documentNode = $documentNode;
         $this->currentNode = $this->documentNode;
         $this->parentNodes[] = $this->documentNode;
@@ -74,7 +75,7 @@ class EsiHtmlParserCallback implements HtmlCallback
             $this->parentNodes[]
                 = $this->currentNode = $node = new TagNode($tag);
         }
-        $node->setLogic($this->logicFactory->buildLogic($tag, $parentNode, $this->documentNode));
+        $node->setLogic($this->esiContext->logicFactory->buildLogic($tag, $parentNode, $this->documentNode));
         $parentNode->append($node);
     }
 
@@ -90,10 +91,14 @@ class EsiHtmlParserCallback implements HtmlCallback
                 throw new \Exception("Ending Tag </$ns:$name> [Line: $lineNo] mismatch with opening tag {$this->currentNode->getTag()}");
         }
         $this->currentNode->append($this->curTextNode);
+        $oldCurNode = $this->currentNode;
         $this->curTextNode = new TextNode();
         array_pop($this->parentNodes);
         $this->currentNode = $this->parentNodes[count ($this->parentNodes) - 1];
 
+        if ($oldCurNode->getLogic() instanceof EsiBuildLogic) {
+            $oldCurNode->getLogic()->onEndBuild($oldCurNode, $this->parentNodes[count ($this->parentNodes) - 1], $this->esiContext, $this->documentNode);
+        }
     }
 
     public function onProcessingInstruction(string $data, int $lineNo)
